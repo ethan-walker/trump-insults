@@ -23,11 +23,15 @@ const genderMap = {
    "(has)" : ["has", "has", "have"],
    "(Has)" : ["Has", "Has", "Have"],
    "(HAS)" : ["HAS", "HAS", "HAVE"],
+   "(doesn't)" : ["doesn't", "doesn't", "don't"],
+   "(does)" : ["does", "does", "do"],
+   "(knows)" : ["knows", "knows", "know"],
    "(himself)" : ["himself", "herself", "themself"],
    "(Himself)" : ["Himself", "Herself", "Themself"],
    "(HIMSELF)" : ["HIMSELF", "HERSELF", "THEMSELF"],
    "(man)" : ["man", "woman", "person"]
 }
+// probably a better way to do this but oh well
 
 var handle;
 var prevName;
