@@ -159,7 +159,7 @@ phrases = [
    "[NAME] has always been terrible & unfair",
    "[NAME] has never been a nice or kind guy.",
    "[NAME] sold out, suffered a massive \"nervous breakdown\"!",
-   "How dare [NAME] make false charges and statements about me. Guy is a total loser!",
+   "How dare [NAME] make false charges and statements about me. (he) is a total loser!",
    "SO MUCH FAKE NEWS! [NAME] has gone absolutely insane because they realize we are WINNING!!!",
    "[NAME] really blew it. Didn't have a clue!!!",
    "[NAME] is a long time CROOK.",
@@ -175,7 +175,8 @@ phrases = [
    "[NAME] is a disaster who cheated and lied. How do you write tweets when you can't remember anything?",
    "[NAME] is either very dumb, or one of the worst liars in political history.",
    "[NAME] is a corrupt globalist sellout who never misses a chance to stab DEMOCRACY in the back.",
-   "No one has been more wrong, more often than [NAME]."
+   "No one has been more wrong, more often than [NAME].",
+   "[NAME] is a complete disaster and don’t have a clue, or worse. Nobody can be this stupid."
 ]
 handles = [
    "[first][last]",
