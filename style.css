@@ -80,6 +80,10 @@ button, input {
 
 .tweet {
    animation: tweet-appear 300ms var(--bezier-1);
+
+   & *:not([min-width]) {
+      min-width: 0;
+   }
    
    header {
       display: flex;
@@ -108,13 +112,14 @@ button, input {
       .checkmark {
          height: 1em;
          min-width: 1em;
+         align-self: center;
       }
       > .author-handle {
          font-family: var(--font-monospace);
          /* font-size: .85em; */
       }
       > .time {
-         width: fit-content;
+         min-width: fit-content;
       }
       & > .time::before {
          content: "· ";
@@ -214,6 +219,7 @@ button, input {
 }
 input {
    height: 1em;
+   width: 100%;
 }
 @keyframes tweet-appear {
    from {

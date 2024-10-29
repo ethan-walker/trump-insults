@@ -107,7 +107,8 @@ function generateTweet() {
    var tweetTemplate = `<img class="tweet-avatar" src="./assets/trump_pfp.jpg" alt="Donald Trump's Twitter Avatar">
          <div class="tweet-content">
             <header>
-               <span class="author-name">Donald J. Trump <img class="checkmark" src="./assets/verified.png" alt=""></span>
+               <span class="author-name">Donald J. Trump</span>
+               <img class="checkmark" src="./assets/verified.png" alt="">
                <span class="author-handle">@realDonaldTrump</span>
                <span class="time">1m</span>
             </header>
