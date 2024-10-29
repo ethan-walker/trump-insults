@@ -71,7 +71,6 @@ function generateHandle(name) {
 
    var template = randItem(handles);
    handle = template.replace("[first]", firstName).replace("[last]", lastName).replace("[num]", num);
-   handle = `.@${handle}`
    return handle;
 }
 
@@ -88,14 +87,14 @@ function generateTweet() {
    var changedName;
 
    if (Math.random() < 0.45) {
-      changedName = `<span class="mention">${handle}</span>`;
+      changedName = `.<span class="mention">@${handle}</span>`;
    }
    else {
       changedName = `${randItem(epithets)} ${name}`;
    }
 
    let phrase = randItem(phrases);
-   var message = phrase.replace("[NAME]", changedName);
+   var message = phrase.replaceAll("[NAME]", changedName);
 
    let gender = getGender(firstName);
 
