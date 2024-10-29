@@ -100,7 +100,7 @@ function generateTweet() {
    let gender = getGender(firstName);
 
    for (let [key, value] of Object.entries(genderMap)) {
-      message = message.replace(key, value[gender])
+      message = message.replaceAll(key, value[gender])
    }
 
    numComments = randBetween(10, 999);
