@@ -2,10 +2,73 @@ const btn = document.querySelector("#generate-tweet");
 const nameInput = document.querySelector("#name-input");
 const tweetList = document.querySelector(".tweet-list");
 
-btn.addEventListener("click", generateTweet)
+nameInput.addEventListener("focusout", updateName);
 
-function generateHandle() {
-   // nothing yet
+const genderMap = {
+   "(he)" : ["he", "she", "they"],
+   "(He)" : ["He", "She", "They"],
+   "(HE)" : ["HE", "SHE", "THEY"],
+   "(his)" : ["his", "her", "their"],
+   "(His)" : ["His", "Her", "Their"],
+   "(HIS)" : ["HIS", "HER", "THEIR"],
+   "(him)" : ["him", "her", "them"],
+   "(Him)" : ["Him", "Her", "Them"],
+   "(HIM)" : ["HIM", "HER", "THEM"],
+   "(is)" : ["is", "is", "are"],
+   "(Is)" : ["Is", "Is", "Are"],
+   "(IS)" : ["IS", "IS", "ARE"],
+   "(was)" : ["was", "was", "were"],
+   "(Was)" : ["Was", "Was", "Were"],
+   "(WAS)" : ["WAS", "WAS", "WERE"],
+   "(has)" : ["has", "has", "have"],
+   "(Has)" : ["Has", "Has", "Have"],
+   "(HAS)" : ["HAS", "HAS", "HAVE"],
+   "(himself)" : ["himself", "herself", "themself"],
+   "(Himself)" : ["Himself", "Herself", "Themself"],
+   "(HIMSELF)" : ["HIMSELF", "HERSELF", "THEMSELF"],
+   "(man)" : ["man", "woman", "person"]
+}
+
+var handle;
+var prevName;
+
+btn.addEventListener("click", generateTweet);
+
+function updateName() {
+   let name = toTitleCase(nameInput.value);
+
+   if (name === prevName) return;
+
+   handle = generateHandle(name);
+
+   prevName = name;
+}
+function generateHandle(name) {
+   name = name.split(" ");
+   var firstName = name[0];
+   var lastName = name[1] || "";
+   console.log(firstName);
+
+   if (Math.random() < 0.15) {
+      firstName = firstName.split("")[0];
+   }
+   else if (Math.random() < 0.5) {
+      firstName = firstName.toLowerCase();
+   }
+
+   if (Math.random() < 0.1) {
+      lastName = lastName.split("")[0];
+   }
+   else if (Math.random() < 0.5) {
+      lastName = lastName.toLowerCase();
+   }
+
+   var num = Math.floor(Math.random() * 99).toString().padStart(2, "0");
+
+   var template = randItem(handles);
+   handle = template.replace("[first]", firstName).replace("[last]", lastName).replace("[num]", num);
+   handle = `.@${handle}`
+   return handle;
 }
 
 const randBetween = (lo, hi) => Math.floor(Math.random() * (hi - lo)) + lo;
@@ -16,10 +79,25 @@ const toTitleCase = (str) => str.toLowerCase().replace(/\b\w/g, s => s.toUpperCa
 function generateTweet() {
    let name = toTitleCase(nameInput.value);
 
-   changedName = `${randItem(epithets)} ${name}`;
+   let firstName = name.split(" ")[0];
+
+   var changedName;
+
+   if (Math.random() < 0.35) {
+      changedName = `<span class="mention">${handle}</span>`;
+   }
+   else {
+      changedName = `${randItem(epithets)} ${name}`;
+   }
 
    let phrase = randItem(phrases);
-   message = phrase.replace("[NAME]", changedName);
+   var message = phrase.replace("[NAME]", changedName);
+
+   let gender = getGender(firstName);
+
+   for (let [key, value] of Object.entries(genderMap)) {
+      message = message.replace(key, value[gender])
+   }
 
    numComments = randBetween(10, 999);
    numLikes = randBetween(10, 999);
@@ -76,11 +154,44 @@ function generateTweet() {
 }
 
 function addLike(e) {
-   e.currentTarget.classList.toggle("liked");
+   var likeButton = e.currentTarget;
+   var display = likeButton.querySelector("span");
+
+   if (likeButton.classList.contains("liked")) {
+      likeButton.classList.remove("liked");
+      display.innerHTML = parseInt(display.innerHTML) - 1;
+   }
+   else {
+      likeButton.classList.add("liked");
+      display.innerHTML = parseInt(display.innerHTML) + 1;
+   }
 }
 function updateTime(tweet) {
    var timeElem = tweet.querySelector(".time");
    let time = parseInt(timeElem.textContent.replace("m","")) + 1;
    timeElem.textContent = time + "m";
 }
+function getGender(name) {
+   name = name.toLowerCase();
 
+   var probMale = (maleNames[name] || {"count" : 0}).count;
+   var probFemale = (femaleNames[name] || {"count" : 0}).count;
+
+   if (probMale > probFemale) {
+      return 0; // Male
+   }
+   else if (probFemale > probMale) {
+      return 1; // Female
+   }
+   // I pray no names have the same probability
+   else {
+      return 2; // what on earth??
+   }
+}
+
+// const reader = new FileReader();
+// reader.onload = function(e) {
+//    const content = e.target.result;
+//    console.log(content);
+// };
+// reader.readAsText(file);
