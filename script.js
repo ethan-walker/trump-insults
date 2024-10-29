@@ -53,7 +53,7 @@ function generateHandle(name) {
    var lastName = name[1] || "";
    console.log(firstName);
 
-   if (Math.random() < 0.15) {
+   if (Math.random() < 0.17) {
       firstName = firstName.split("")[0];
    }
    else if (Math.random() < 0.5) {
@@ -87,7 +87,7 @@ function generateTweet() {
 
    var changedName;
 
-   if (Math.random() < 0.35) {
+   if (Math.random() < 0.45) {
       changedName = `<span class="mention">${handle}</span>`;
    }
    else {
